@@ -21,6 +21,7 @@ namespace ModBusV1
         IModbusSerialMaster master;
         byte slaveAddress = Properties.Settings.Default.Address;
 
+
         public static int[] BaudRate = new int[] { 4800, 9600, 19200, 38400, 57600, 115200 };
         public static int[] DataBits = new int[] { 7, 8 };
         public static int[] StepBits = new int[] { 1, 2 };
@@ -91,15 +92,16 @@ namespace ModBusV1
                 mnuFileConnect.Enabled = false;
                 mnuFileSettings.Enabled = false;
                 mnuFileDisConnect.Enabled = true;
-                lblTemp.Visible = true;
-                numAddress.Visible = true;
-                numValue.Visible = true;
-                BtnSend.Visible = true;
-                LblLevel.Visible = true;
+                LblSpeed.Visible = true;
+                LblAmper.Visible = true;
+                BtnStop.Visible = true;
+                BtnRight.Visible = true;
+                BtnLeft.Visible = true;
+                LblA.Visible = true;
+                LblF.Visible = true;
                 BtnInc.Visible = true;
                 BtnDec.Visible = true;
-                LblAddress.Visible = true;
-                LblValue.Visible = true;
+                BarSpeed.Visible = true;
 
                 BackgroundImage = null;
 
@@ -142,26 +144,65 @@ namespace ModBusV1
             mnuFileConnect.Enabled = true;
             mnuFileSettings.Enabled = true;
             mnuFileDisConnect.Enabled = false;
-            numAddress.Visible = false;
-            numValue.Visible = false;
-            BtnSend.Visible = false;
-            lblTemp.Visible = false;
-            LblLevel.Visible = false;
+            LblSpeed.Visible = false;
+            LblAmper.Visible = false;
+            BtnStop.Visible = false;
+            BtnRight.Visible = false;
+            BtnLeft.Visible = false;
+            LblA.Visible = false;
+            LblF.Visible = false;
             BtnInc.Visible = false;
             BtnDec.Visible = false;
-            LblAddress.Visible = false;
-            LblValue.Visible = false;
+            BarSpeed.Visible = false;
+        }
+
+        private void BtnInc_Click(object sender, EventArgs e)
+        {
+            var val = decimal.Parse(LblSpeed.Text) * 100;
+            val += 100;
+            if (val > 5000) val = 5000;
+            master.WriteSingleRegister(slaveAddress, 0x2001, (ushort)val);
+            LblSpeed.Text = (val / 100).ToString("0.0");
+        }
+
+        private void BtnDec_Click(object sender, EventArgs e)
+        {
+            var val = decimal.Parse(LblSpeed.Text) * 100;
+            val -= 100;
+            if (val < 0) val = 0;
+            master.WriteSingleRegister(slaveAddress, 0x2001, (ushort)val);
+            LblSpeed.Text = (val / 100).ToString("0.0");
+        }
+
+        private void BtnStop_Click(object sender, EventArgs e)
+        {
+            master.WriteSingleRegister(slaveAddress, 0x2000, 1);
+        }
+
+        private void BtnRight_Click(object sender, EventArgs e)
+        {
+            master.WriteSingleRegister(slaveAddress, 0x2000, 18);
+        }
+
+        private void BtnLeft_Click(object sender, EventArgs e)
+        {
+            master.WriteSingleRegister(slaveAddress, 0x2000, 34);
         }
 
         private void tmr_Tick(object sender, EventArgs e)
         {
             try
             {
-                ushort[] results = master.ReadInputRegisters(slaveAddress, 4096 , 1);
+                var speeds = master.ReadHoldingRegisters(slaveAddress, 0x2102, 1);
+                decimal speed = speeds[0];
+                speed /= 100;
+                LblSpeed.Text = speed.ToString("0.0");
+                BarSpeed.Value = Convert.ToInt32(speed * 100);
 
-                decimal temp = results[0];
-                temp /= 10;
-                lblTemp.Text = temp.ToString("#.0");
+                var ampers = master.ReadHoldingRegisters(slaveAddress, 0x2104, 1);
+                decimal amper = ampers[0];
+                amper /= 10;
+                LblAmper.Text = amper.ToString("0.0");
             }
             catch (Exception ex)
             {
@@ -174,44 +215,9 @@ namespace ModBusV1
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void BarSpeed_Scroll(object sender, EventArgs e)
         {
-            master.WriteSingleRegister(slaveAddress, Convert.ToUInt16(numAddress.Value.ToString()), Convert.ToUInt16(numValue.Value.ToString()));
-        }
-
-        private void numAddress_ValueChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (serialPort.IsOpen && master != null) { 
-                    numValue.Value = master.ReadHoldingRegisters(slaveAddress, Convert.ToUInt16(numAddress.Value.ToString()), 1)[0];
-                    if(numValue.Value == 0)
-                        LblLevel.Text = numValue.Value.ToString("0#.0");
-                }
-            }
-            catch (Exception ex)
-            {
-                if(ex.HResult== -2146233088)
-                    MessageBox.Show(this, "Address is wrong.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else
-                    MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void BtnInc_Click(object sender, EventArgs e)
-        {
-            var val = decimal.Parse(LblLevel.Text) * 10;
-            val += 1;
-            master.WriteSingleRegister(slaveAddress, 0, (ushort)val);
-            LblLevel.Text = (val / 10).ToString("0#.0");
-        }
-
-        private void BtnDec_Click(object sender, EventArgs e)
-        {
-            var val = decimal.Parse(LblLevel.Text) * 10;
-            val -= 1;
-            master.WriteSingleRegister(slaveAddress, 0, (ushort)val);
-            LblLevel.Text = (val / 10).ToString("0#.0");
+            master.WriteSingleRegister(slaveAddress, 0x2001, (ushort)BarSpeed.Value);
         }
     }
 }

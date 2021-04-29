@@ -39,6 +39,8 @@ namespace ModBusV1
             this.mnuFileDisConnect = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.LblF = new System.Windows.Forms.Label();
+            this.LblA = new System.Windows.Forms.Label();
             this.stsMain = new System.Windows.Forms.StatusStrip();
             this.stsComPort = new System.Windows.Forms.ToolStripStatusLabel();
             this.stsBaudRate = new System.Windows.Forms.ToolStripStatusLabel();
@@ -46,26 +48,24 @@ namespace ModBusV1
             this.stsParity = new System.Windows.Forms.ToolStripStatusLabel();
             this.stsStopBits = new System.Windows.Forms.ToolStripStatusLabel();
             this.stsState = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lblTemp = new System.Windows.Forms.Label();
+            this.LblSpeed = new System.Windows.Forms.Label();
             this.tmr = new System.Windows.Forms.Timer(this.components);
-            this.numAddress = new System.Windows.Forms.NumericUpDown();
-            this.numValue = new System.Windows.Forms.NumericUpDown();
-            this.BtnSend = new System.Windows.Forms.Button();
-            this.LblLevel = new System.Windows.Forms.Label();
+            this.LblAmper = new System.Windows.Forms.Label();
             this.BtnInc = new System.Windows.Forms.Button();
             this.BtnDec = new System.Windows.Forms.Button();
-            this.LblAddress = new System.Windows.Forms.Label();
-            this.LblValue = new System.Windows.Forms.Label();
             this.Pic = new System.Windows.Forms.PictureBox();
+            this.BtnStop = new System.Windows.Forms.Button();
+            this.BtnRight = new System.Windows.Forms.Button();
+            this.BtnLeft = new System.Windows.Forms.Button();
+            this.BarSpeed = new System.Windows.Forms.TrackBar();
             mnuMain = new System.Windows.Forms.MenuStrip();
             mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             mnuFile_1 = new System.Windows.Forms.ToolStripSeparator();
             mnuFile_2 = new System.Windows.Forms.ToolStripSeparator();
             mnuMain.SuspendLayout();
             this.stsMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numAddress)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Pic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BarSpeed)).BeginInit();
             this.SuspendLayout();
             // 
             // mnuMain
@@ -136,6 +136,34 @@ namespace ModBusV1
             this.mnuFileExit.Size = new System.Drawing.Size(209, 22);
             this.mnuFileExit.Text = "Exit";
             this.mnuFileExit.Click += new System.EventHandler(this.MnuFileExit_Click);
+            // 
+            // LblF
+            // 
+            this.LblF.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.LblF.Font = new System.Drawing.Font("DS-Digital", 99.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblF.ForeColor = System.Drawing.Color.Red;
+            this.LblF.Location = new System.Drawing.Point(9, 298);
+            this.LblF.Margin = new System.Windows.Forms.Padding(0);
+            this.LblF.Name = "LblF";
+            this.LblF.Size = new System.Drawing.Size(77, 132);
+            this.LblF.TabIndex = 14;
+            this.LblF.Text = "F";
+            this.LblF.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LblF.Visible = false;
+            // 
+            // LblA
+            // 
+            this.LblA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.LblA.Font = new System.Drawing.Font("DS-Digital", 80.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblA.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.LblA.Location = new System.Drawing.Point(555, 330);
+            this.LblA.Margin = new System.Windows.Forms.Padding(0);
+            this.LblA.Name = "LblA";
+            this.LblA.Size = new System.Drawing.Size(79, 100);
+            this.LblA.TabIndex = 15;
+            this.LblA.Text = "A";
+            this.LblA.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LblA.Visible = false;
             // 
             // stsMain
             // 
@@ -216,89 +244,45 @@ namespace ModBusV1
             this.stsState.Text = "Disconnected";
             this.stsState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // lblTemp
+            // LblSpeed
             // 
-            this.lblTemp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.lblTemp.Font = new System.Drawing.Font("DS-Digital", 99.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTemp.ForeColor = System.Drawing.Color.Red;
-            this.lblTemp.Location = new System.Drawing.Point(9, 298);
-            this.lblTemp.Margin = new System.Windows.Forms.Padding(0);
-            this.lblTemp.Name = "lblTemp";
-            this.lblTemp.Size = new System.Drawing.Size(249, 132);
-            this.lblTemp.TabIndex = 4;
-            this.lblTemp.Text = "16.5";
-            this.lblTemp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblTemp.Visible = false;
+            this.LblSpeed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.LblSpeed.Font = new System.Drawing.Font("DS-Digital", 99.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblSpeed.ForeColor = System.Drawing.Color.Red;
+            this.LblSpeed.Location = new System.Drawing.Point(86, 298);
+            this.LblSpeed.Margin = new System.Windows.Forms.Padding(0);
+            this.LblSpeed.Name = "LblSpeed";
+            this.LblSpeed.Size = new System.Drawing.Size(284, 132);
+            this.LblSpeed.TabIndex = 4;
+            this.LblSpeed.Text = "16.5";
+            this.LblSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LblSpeed.Visible = false;
             // 
             // tmr
             // 
-            this.tmr.Interval = 1000;
             this.tmr.Tick += new System.EventHandler(this.tmr_Tick);
             // 
-            // numAddress
+            // LblAmper
             // 
-            this.numAddress.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numAddress.Location = new System.Drawing.Point(559, 378);
-            this.numAddress.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numAddress.Name = "numAddress";
-            this.numAddress.Size = new System.Drawing.Size(120, 52);
-            this.numAddress.TabIndex = 5;
-            this.numAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numAddress.Visible = false;
-            this.numAddress.ValueChanged += new System.EventHandler(this.numAddress_ValueChanged);
-            // 
-            // numValue
-            // 
-            this.numValue.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numValue.Location = new System.Drawing.Point(685, 378);
-            this.numValue.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numValue.Name = "numValue";
-            this.numValue.Size = new System.Drawing.Size(120, 52);
-            this.numValue.TabIndex = 6;
-            this.numValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numValue.Visible = false;
-            // 
-            // BtnSend
-            // 
-            this.BtnSend.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSend.Location = new System.Drawing.Point(811, 378);
-            this.BtnSend.Name = "BtnSend";
-            this.BtnSend.Size = new System.Drawing.Size(152, 52);
-            this.BtnSend.TabIndex = 7;
-            this.BtnSend.Text = "Update";
-            this.BtnSend.UseVisualStyleBackColor = true;
-            this.BtnSend.Visible = false;
-            this.BtnSend.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // LblLevel
-            // 
-            this.LblLevel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.LblLevel.Font = new System.Drawing.Font("DS-Digital", 80.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblLevel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.LblLevel.Location = new System.Drawing.Point(263, 330);
-            this.LblLevel.Margin = new System.Windows.Forms.Padding(0);
-            this.LblLevel.Name = "LblLevel";
-            this.LblLevel.Size = new System.Drawing.Size(227, 100);
-            this.LblLevel.TabIndex = 8;
-            this.LblLevel.Text = "40.0";
-            this.LblLevel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.LblLevel.Visible = false;
+            this.LblAmper.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.LblAmper.Font = new System.Drawing.Font("DS-Digital", 80.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblAmper.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.LblAmper.Location = new System.Drawing.Point(399, 330);
+            this.LblAmper.Margin = new System.Windows.Forms.Padding(0);
+            this.LblAmper.Name = "LblAmper";
+            this.LblAmper.Size = new System.Drawing.Size(156, 100);
+            this.LblAmper.TabIndex = 8;
+            this.LblAmper.Text = "1.5";
+            this.LblAmper.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LblAmper.Visible = false;
             // 
             // BtnInc
             // 
-            this.BtnInc.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnInc.Location = new System.Drawing.Point(493, 330);
+            this.BtnInc.Font = new System.Drawing.Font("Tahoma", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnInc.Location = new System.Drawing.Point(274, 152);
             this.BtnInc.Margin = new System.Windows.Forms.Padding(0);
             this.BtnInc.Name = "BtnInc";
-            this.BtnInc.Size = new System.Drawing.Size(55, 48);
+            this.BtnInc.Size = new System.Drawing.Size(96, 89);
             this.BtnInc.TabIndex = 9;
             this.BtnInc.Text = "+";
             this.BtnInc.UseVisualStyleBackColor = true;
@@ -307,38 +291,17 @@ namespace ModBusV1
             // 
             // BtnDec
             // 
-            this.BtnDec.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDec.Location = new System.Drawing.Point(493, 389);
+            this.BtnDec.Font = new System.Drawing.Font("Tahoma", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDec.Location = new System.Drawing.Point(12, 154);
             this.BtnDec.Margin = new System.Windows.Forms.Padding(0);
             this.BtnDec.Name = "BtnDec";
-            this.BtnDec.Size = new System.Drawing.Size(55, 41);
+            this.BtnDec.Size = new System.Drawing.Size(91, 89);
             this.BtnDec.TabIndex = 10;
             this.BtnDec.Text = "-";
+            this.BtnDec.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.BtnDec.UseVisualStyleBackColor = true;
             this.BtnDec.Visible = false;
             this.BtnDec.Click += new System.EventHandler(this.BtnDec_Click);
-            // 
-            // LblAddress
-            // 
-            this.LblAddress.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblAddress.Location = new System.Drawing.Point(559, 337);
-            this.LblAddress.Name = "LblAddress";
-            this.LblAddress.Size = new System.Drawing.Size(120, 38);
-            this.LblAddress.TabIndex = 11;
-            this.LblAddress.Text = "Address";
-            this.LblAddress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.LblAddress.Visible = false;
-            // 
-            // LblValue
-            // 
-            this.LblValue.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblValue.Location = new System.Drawing.Point(685, 337);
-            this.LblValue.Name = "LblValue";
-            this.LblValue.Size = new System.Drawing.Size(120, 38);
-            this.LblValue.TabIndex = 12;
-            this.LblValue.Text = "Value";
-            this.LblValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.LblValue.Visible = false;
             // 
             // Pic
             // 
@@ -353,21 +316,76 @@ namespace ModBusV1
             this.Pic.TabIndex = 13;
             this.Pic.TabStop = false;
             // 
+            // BtnStop
+            // 
+            this.BtnStop.Font = new System.Drawing.Font("Tahoma", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnStop.ForeColor = System.Drawing.Color.Maroon;
+            this.BtnStop.Location = new System.Drawing.Point(661, 100);
+            this.BtnStop.Margin = new System.Windows.Forms.Padding(0);
+            this.BtnStop.Name = "BtnStop";
+            this.BtnStop.Size = new System.Drawing.Size(215, 89);
+            this.BtnStop.TabIndex = 16;
+            this.BtnStop.Text = "Stop";
+            this.BtnStop.UseVisualStyleBackColor = true;
+            this.BtnStop.Visible = false;
+            this.BtnStop.Click += new System.EventHandler(this.BtnStop_Click);
+            // 
+            // BtnRight
+            // 
+            this.BtnRight.Font = new System.Drawing.Font("Tahoma", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnRight.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.BtnRight.Location = new System.Drawing.Point(661, 202);
+            this.BtnRight.Margin = new System.Windows.Forms.Padding(0);
+            this.BtnRight.Name = "BtnRight";
+            this.BtnRight.Size = new System.Drawing.Size(215, 89);
+            this.BtnRight.TabIndex = 17;
+            this.BtnRight.Text = "Right";
+            this.BtnRight.UseVisualStyleBackColor = true;
+            this.BtnRight.Visible = false;
+            this.BtnRight.Click += new System.EventHandler(this.BtnRight_Click);
+            // 
+            // BtnLeft
+            // 
+            this.BtnLeft.Font = new System.Drawing.Font("Tahoma", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnLeft.ForeColor = System.Drawing.Color.Navy;
+            this.BtnLeft.Location = new System.Drawing.Point(661, 303);
+            this.BtnLeft.Margin = new System.Windows.Forms.Padding(0);
+            this.BtnLeft.Name = "BtnLeft";
+            this.BtnLeft.Size = new System.Drawing.Size(215, 89);
+            this.BtnLeft.TabIndex = 18;
+            this.BtnLeft.Text = "Left";
+            this.BtnLeft.UseVisualStyleBackColor = true;
+            this.BtnLeft.Visible = false;
+            this.BtnLeft.Click += new System.EventHandler(this.BtnLeft_Click);
+            // 
+            // BarSpeed
+            // 
+            this.BarSpeed.LargeChange = 10;
+            this.BarSpeed.Location = new System.Drawing.Point(12, 246);
+            this.BarSpeed.Maximum = 5000;
+            this.BarSpeed.Name = "BarSpeed";
+            this.BarSpeed.Size = new System.Drawing.Size(358, 45);
+            this.BarSpeed.TabIndex = 19;
+            this.BarSpeed.TickFrequency = 10;
+            this.BarSpeed.Visible = false;
+            this.BarSpeed.Scroll += new System.EventHandler(this.BarSpeed_Scroll);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(965, 556);
-            this.Controls.Add(this.LblValue);
-            this.Controls.Add(this.LblAddress);
+            this.Controls.Add(this.BarSpeed);
+            this.Controls.Add(this.BtnLeft);
+            this.Controls.Add(this.BtnRight);
+            this.Controls.Add(this.BtnStop);
+            this.Controls.Add(this.LblA);
+            this.Controls.Add(this.LblF);
             this.Controls.Add(this.BtnDec);
             this.Controls.Add(this.BtnInc);
-            this.Controls.Add(this.LblLevel);
-            this.Controls.Add(this.BtnSend);
-            this.Controls.Add(this.numValue);
-            this.Controls.Add(this.numAddress);
-            this.Controls.Add(this.lblTemp);
+            this.Controls.Add(this.LblAmper);
+            this.Controls.Add(this.LblSpeed);
             this.Controls.Add(this.stsMain);
             this.Controls.Add(mnuMain);
             this.Controls.Add(this.Pic);
@@ -379,9 +397,8 @@ namespace ModBusV1
             mnuMain.PerformLayout();
             this.stsMain.ResumeLayout(false);
             this.stsMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numAddress)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Pic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BarSpeed)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -399,17 +416,18 @@ namespace ModBusV1
         private System.Windows.Forms.ToolStripStatusLabel stsParity;
         private System.Windows.Forms.ToolStripStatusLabel stsStopBits;
         private System.Windows.Forms.ToolStripStatusLabel stsState;
-        private System.Windows.Forms.Label lblTemp;
+        private System.Windows.Forms.Label LblSpeed;
         private System.Windows.Forms.Timer tmr;
-        private System.Windows.Forms.NumericUpDown numAddress;
-        private System.Windows.Forms.NumericUpDown numValue;
-        private System.Windows.Forms.Button BtnSend;
-        private System.Windows.Forms.Label LblLevel;
+        private System.Windows.Forms.Label LblAmper;
         private System.Windows.Forms.Button BtnInc;
         private System.Windows.Forms.Button BtnDec;
-        private System.Windows.Forms.Label LblAddress;
-        private System.Windows.Forms.Label LblValue;
         private System.Windows.Forms.PictureBox Pic;
+        private System.Windows.Forms.Button BtnStop;
+        private System.Windows.Forms.Button BtnRight;
+        private System.Windows.Forms.Button BtnLeft;
+        private System.Windows.Forms.Label LblF;
+        private System.Windows.Forms.Label LblA;
+        private System.Windows.Forms.TrackBar BarSpeed;
     }
 }
 
